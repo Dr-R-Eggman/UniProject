@@ -14,5 +14,6 @@ print_something("Test commit twice")
 print_something("Test Merge")
 print_something("Further test")
 print_something("Test branch")
+print_something("Final test")
 x = 5
 print_variable(x)
