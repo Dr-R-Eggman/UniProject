@@ -11,5 +11,6 @@ def print_variable(v):
 print_something("How are you?")
 print_something("This is to test commit to Git")
 print_something("Test commit twice")
+print_something("Test branch")
 x = 5
 print_variable(x)
