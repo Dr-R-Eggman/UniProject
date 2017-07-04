@@ -1,5 +1,5 @@
 import pygame
-import Tank as tanky
+import Tank as Tanky
 
 pygame.init()  # launch initial program
 
@@ -7,13 +7,14 @@ WIDTH = 400  # resolution
 HEIGHT = 300  # resolution
 DISPLAY = pygame.display
 screen = DISPLAY.set_mode((WIDTH, HEIGHT))
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()  # for fps purpose
 
 colour = (0, 128, 255)
 
-image = pygame.image.load('images/tank_body.png')
-image.get_rect().center = (100/2, 140/2)
-player_tank = tanky.Tank(100, 140, 0, image)
+image1 = pygame.image.load('images/tank_body.png')
+image2 = pygame.image.load('images/tank_head.png')
+images = (image1, image2)
+player_tank = Tanky.Tank(100, 140, 0, images)
 
 done = False
 while not done:
@@ -29,14 +30,19 @@ while not done:
     surf, rect = player_tank.rotate(player_tank.bearing)
     pressed_key = pygame.key.get_pressed()  # get a key that is being pressed
     if pressed_key[pygame.K_w] or pressed_key[pygame.K_UP]:
-        player_tank.posY -= 1  # go up
+        surf, rect = player_tank.forward()
     if pressed_key[pygame.K_s] or pressed_key[pygame.K_DOWN]:
         player_tank.posY += 1  # go down
     if pressed_key[pygame.K_a] or pressed_key[pygame.K_LEFT]:
-        surf, rect = player_tank.rotate(player_tank.bearing - 1)
+        surf, rect = player_tank.rotate(player_tank.bearing + 1)  # rotate left
     if pressed_key[pygame.K_d] or pressed_key[pygame.K_RIGHT]:
-        surf, rect = player_tank.rotate(player_tank.bearing + 1)
+        surf, rect = player_tank.rotate(player_tank.bearing - 1)  # rotate right
 
+    # draw an image onto background, top-left corner of
+    # the rect is a coord to place image onto background
+    screen.blit(surf, rect)
+
+    surf, rect = player_tank.head()
     screen.blit(surf, rect)
 
     DISPLAY.flip()  # update whole screen

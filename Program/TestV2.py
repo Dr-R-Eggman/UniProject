@@ -1,2 +1,3 @@
-print("Hello World!")
-print("Test2")
+import math
+
+print(math.atan2(0-10, 0)+180)
